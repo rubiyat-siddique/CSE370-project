@@ -1,6 +1,11 @@
 -- Create Database: cse370_project
 -- (Note: You should create the database manually using `CREATE DATABASE cse370_project;` before running this script)
 
+-- Reset: drop everything and start fresh
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+
+
 CREATE TABLE Users (
     UserID SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
@@ -39,7 +44,7 @@ CREATE TABLE Listings (
 );
 
 CREATE TABLE Purchases (
-    PurchaseID SERIAL PRIMARY KEY,
+    TxID VARCHAR(20) PRIMARY KEY,
     ListingID INTEGER REFERENCES Listings(ListingID) ON DELETE CASCADE,
     Buyer_ID INTEGER REFERENCES Users(UserID) ON DELETE SET NULL,
     Purchase_Price DECIMAL(10, 2) NOT NULL,
@@ -98,5 +103,5 @@ INSERT INTO Listings (DiscID, Seller_ID, Condition, Status, Price, Is_Public, Is
 (3, 2, 'Like New', 'Sold', 35.00, false, true, false);
 
 -- A past transaction / Purchase
-INSERT INTO Purchases (ListingID, Buyer_ID, Purchase_Price, Purchase_Date) VALUES 
-(3, 1, 35.00, '2023-10-01');
+INSERT INTO Purchases (TxID, ListingID, Buyer_ID, Purchase_Price, Purchase_Date) VALUES 
+('TXN-SEED0001', 3, 1, 35.00, '2023-10-01');

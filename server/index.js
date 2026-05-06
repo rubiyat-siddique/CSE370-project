@@ -6,13 +6,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// --- MOCK AUTH (Since there's no real login required) ---
-// In a real app, this would be handled by JWT tokens.
-// For this project, we'll pass the userID in headers or query.
 
 // --- BUYER ENDPOINTS ---
 
-// 1. Search and Sort Listings
+//  Search and Sort Listings
 app.get('/api/listings', async (req, res) => {
     try {
         const { search, sort } = req.query;
@@ -47,7 +44,7 @@ app.get('/api/listings', async (req, res) => {
     }
 });
 
-// 1.5. Get User Profile
+//  Get User Profile
 app.get('/api/users/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -62,7 +59,7 @@ app.get('/api/users/:id', async (req, res) => {
     }
 });
 
-// 1.6. Register New User (Buyer or Seller)
+// Register New User (Buyer or Seller)
 app.post('/api/register', async (req, res) => {
     try {
         const { name, email, role } = req.body;
@@ -88,7 +85,7 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-// 2. Add to Cart
+// Add to Cart
 app.post('/api/cart', async (req, res) => {
     try {
         const { userId, discId } = req.body;
@@ -107,7 +104,7 @@ app.post('/api/cart', async (req, res) => {
     }
 });
 
-// 3. Get Cart
+// Get Cart
 app.get('/api/cart/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
@@ -126,7 +123,7 @@ app.get('/api/cart/:userId', async (req, res) => {
     }
 });
 
-// 3.2. Checkout Cart
+// Checkout Cart
 app.post('/api/checkout', async (req, res) => {
     const client = await pool.connect();
     try {
@@ -156,7 +153,7 @@ app.post('/api/checkout', async (req, res) => {
     }
 });
 
-// 3.5. Get Buyer Inventory (Purchases)
+// Get Buyer Inventory (Purchases)
 app.get('/api/inventory/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
@@ -176,7 +173,7 @@ app.get('/api/inventory/:userId', async (req, res) => {
     }
 });
 
-// 4. Rate Seller
+// Rate Seller
 app.post('/api/ratings', async (req, res) => {
     try {
         const { raterId, ratedId, score } = req.body;
